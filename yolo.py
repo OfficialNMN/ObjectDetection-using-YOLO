@@ -42,6 +42,7 @@ def find_object(outputs,img):
                 confidence.append(float(confi))
     indices=cv2.dnn.NMSBoxes(bbox,confidence,confidencethreshold,nms_threshold=0.2)
 
+    # To draw bounding boxes and writing classnames on it
     for i in indices:
         i=i[0]
         box=bbox[i]
@@ -49,6 +50,8 @@ def find_object(outputs,img):
         print(x,y,w,h)
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.putText(img, f'{classnames[classIds[i]].upper()} {int(confidence[i]*100)}%',(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 255), 2)
+        
+        
 while True:
     _,img= cap.read()
 
